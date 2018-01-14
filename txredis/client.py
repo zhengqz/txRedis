@@ -931,13 +931,13 @@ class RedisClient(RedisBase):
         self._send('LASTSAVE')
         return self.getResponse()
 
-    def info(self):
+    def info(self, section=None):
         """
         The info command returns different information and statistics about the
         server in an format that's simple to parse by computers and easy to red
         by huamns.
         """
-        self._send('INFO')
+        self._send('INFO') if section is None else self._send('INFO', section)
 
         def post_process(res):
             info = dict()
